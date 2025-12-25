@@ -1,4 +1,3 @@
-// config/laratrust_seeder.php
 <?php
 
 return [

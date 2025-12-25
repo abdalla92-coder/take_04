@@ -2,8 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Testcontroller;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -28,6 +29,15 @@ require __DIR__.'/auth.php';
 Route::get('/test', [TestController::class, 'getPage']);
 Route::post(    '/testdata',[Testcontroller::class,'formdata'])->name('postdata');
 
-Route::get('/dash',function() {
-    return view('layouts.Master.main');
+
+// Route::resource('/categories', [CategoryController::class]);
+
+Route::resource('categories', CategoryController::class);
+
+
+Route::middleware(['auth', 'role:administrator'])->group(function () {
+    Route::get('/dash', function() {
+        return view('layouts.master.main');
+    });
 });
+
